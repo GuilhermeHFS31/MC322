@@ -56,6 +56,7 @@ public void setIdade(int idade){
     this.idade= idade;
 }
 
+// Método que calcula o primeiro Dígito Verificador;
 private int DigitoVerificador1(String cpf){
     int soma = 0; int multiplicador = 10; int digito1;
     for(int i = 0; i < 9; i++){
@@ -71,6 +72,8 @@ private int DigitoVerificador1(String cpf){
     return digito1;
 }
 
+
+// Método que calcula o segundo Dígito Verificador;
 private int DigitoVerificador2(String cpf, int digito1){
     int soma = 0; int multiplicador = 11; 
     int digito2;
@@ -89,18 +92,20 @@ private int DigitoVerificador2(String cpf, int digito1){
 }
 
 
-
+// Método que retorna True, caso o cpf seja válido, e False, caso o cpf seja inválido;
 public boolean validarCPF(String cpf){
     String novo_cpf;
     int digito1; int digito2; 
     novo_cpf = cpf.replaceAll("\\.+", "");
     novo_cpf = novo_cpf.replaceAll("-", "");
-    if (novo_cpf.length() != 11){
+    
+    if (novo_cpf.length() != 11){ // verifica se o CPF possui 11 dígitos;
         return false;
     }
+
     boolean aux = true;
     int i = 0;
-    while(aux && i < 10){
+    while(aux && i < 10){ // verifica se os dígitos do CPF não são todos iguais;
         if (novo_cpf.charAt(i) != novo_cpf.charAt(1)){
             aux = false;
         }
@@ -109,6 +114,7 @@ public boolean validarCPF(String cpf){
     if (aux){
         return false;
     }
+
     digito1 = DigitoVerificador1(novo_cpf);
     digito2 = DigitoVerificador2(novo_cpf, digito1);
     int verify1 = (novo_cpf.charAt(9) - '0');
@@ -117,17 +123,16 @@ public boolean validarCPF(String cpf){
         return true;
     } else {
         return false;
-    }
-    
-    }
+    }    
+}
     
 public String toString(){
-    return "Nome: " + this.nome + "\n"
+    return  "----  INFORMAÇÕES DO CLIENTE  ----" + "\n"
+            + "Nome: " + this.nome + "\n"
             + "Cpf: "+ this.cpf + "\n"
             + "Data de nascimento: " + this.dataNascimento + "\n"
             + "Endereço: " + this.endereco + "\n"
-            + "Idade: " + this.idade;
-
-
+            + "Idade: " + this.idade + "\n";
 }
+
 }

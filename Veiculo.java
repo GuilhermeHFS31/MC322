@@ -33,4 +33,12 @@ public String getModelo(){
 public void setModelo(String modelo){
     this.modelo = modelo;
 }
+
+public String toString(){
+    return  "----  INFORMAÇÕES DO VEÍCULO  ----" + "\n"
+            + "Placa: " + this.placa + "\n"
+            + "Marca: "+ this.marca + "\n"
+            + "Modelo: "  + this.modelo + "\n";
+}
+
 }

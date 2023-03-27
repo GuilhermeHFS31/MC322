@@ -8,7 +8,7 @@ public class Seguradora{
     public Seguradora(String nome, String telefone, String email, String endereco){
         this.nome = nome;
         this.telefone = telefone;
-        this.email = endereco;
+        this.email = email;
         this.endereco = endereco;
     }
 
@@ -42,6 +42,15 @@ public String getEndereco(){
 
 public void setEndereco(String endereco){    
     this.endereco = endereco;
+}
+
+public String toString(){
+    return  "----  INFORMAÇÕES DA SEGURADORA  ----" + "\n"
+            + "Nome: " + this.nome + "\n"
+            + "Telefone: "+ this.telefone + "\n"
+            + "Email: " + this.email + "\n"
+            + "Endereço: " + this.endereco + "\n";
+            
 }
 
 }

@@ -13,7 +13,7 @@ public int getId(){
     return id;
 }
 
-public void setid(int id){
+public void setId(int id){
     this.id = id;
     }
 
@@ -32,4 +32,18 @@ public String getEndereco(){
 public void setEndereco(String endereco){    
     this.endereco = endereco;
 }
+
+// Método que gera um ID aleatório entre 0 e 10000;
+public void randomID(){
+    int random = (int)(Math.random()  * 10000);
+    setId(random);
+}
+
+public String toString(){
+    return "----  INFORMAÇÕES DO SINISTRO  ----" + "\n"
+            + "Id: " + this.id + "\n"
+            + "Data: "+ this.data + "\n"
+            + "Endereço: " + this.endereco + "\n";
+}
+
 }
