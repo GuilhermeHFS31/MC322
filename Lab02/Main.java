@@ -3,22 +3,22 @@ public class Main {
     public static void main(String[] args){
 
         // Instanciado objetos de cada classe criada;
-        Cliente Cliente1 = new Cliente("Kaire", "496.987.878-10", "15/08/2003", "Rua do Cliente", 0);
-        Veiculo Veiculo1 = new Veiculo("GBK0387", "CHEVROLET", "Prisma");
+        Cliente Cliente1 = new Cliente("Carlos", "496.987.878-10", "15/08/2003", "Rua do Cliente", 19);
+        Veiculo Veiculo1 = new Veiculo("GBK-0387", "CHEVROLET", "Prisma");
         Seguradora Seguro1 = new Seguradora("Kaire Seguros", "14 491418366", "seguros.kaire2006@hotmail.com", "Rua do seguro");
         Sinistro Acidente1 = new Sinistro(0, "01/10/2058", "Rua do acidente");
         
-        // Atribuindo um id aleatório para o objeto "Acidente1"
+        // Atribuindo um id aleatório para o objeto "Acidente1";
         Acidente1.randomID();
 
 
         // Imprimindo as informações sobre o Cliente e validando o CPF dado;
         System.out.println(Cliente1.toString());
         if(Cliente1.validarCPF(Cliente1.getCpf()) == true){  // Verifica-se que o método getCpf funciona corretamente //
-            System.out.println(" ** VALIDAÇÃO REALIZADA COM SUCESSO: CPF VÁLIDO ** " + "\n");
+            System.out.println("** VALIDAÇÃO REALIZADA COM SUCESSO: CPF VÁLIDO **" + "\n");
         } else {
             System.out.println("** ATENÇÃO ** " + "\n"
-                                + "  CPF INVÁLIDO  " + "\n");
+                                + " CPF INVÁLIDO " + "\n");
         }
 
         // Alterando o CPF, pelo método setCpf, para verificar o funcionamento do método validarCPF com um CPF inválido;

@@ -92,20 +92,19 @@ private int DigitoVerificador2(String cpf, int digito1){
 }
 
 
-// Método que retorna True, caso o cpf seja válido, e False, caso o cpf seja inválido;
 public boolean validarCPF(String cpf){
     String novo_cpf;
     int digito1; int digito2; 
     novo_cpf = cpf.replaceAll("\\.+", "");
     novo_cpf = novo_cpf.replaceAll("-", "");
-    
-    if (novo_cpf.length() != 11){ // verifica se o CPF possui 11 dígitos;
+    // verifica se o CPF possui 11 dígitos;
+    if (novo_cpf.length() != 11){ 
         return false;
     }
-
+    // verifica se os dígitos do CPF não são todos iguais;
     boolean aux = true;
     int i = 0;
-    while(aux && i < 10){ // verifica se os dígitos do CPF não são todos iguais;
+    while(aux && i < 10){ 
         if (novo_cpf.charAt(i) != novo_cpf.charAt(1)){
             aux = false;
         }
@@ -114,7 +113,7 @@ public boolean validarCPF(String cpf){
     if (aux){
         return false;
     }
-
+    // Cálculo e verficaçao dos digitos verificadores 
     digito1 = DigitoVerificador1(novo_cpf);
     digito2 = DigitoVerificador2(novo_cpf, digito1);
     int verify1 = (novo_cpf.charAt(9) - '0');
@@ -126,6 +125,7 @@ public boolean validarCPF(String cpf){
     }    
 }
     
+
 public String toString(){
     return  "----  INFORMAÇÕES DO CLIENTE  ----" + "\n"
             + "Nome: " + this.nome + "\n"
