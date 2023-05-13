@@ -13,23 +13,19 @@ public class ClientePF extends Cliente {
     // Constructor
     public ClientePF(String nome, String endereco, ArrayList<Veiculo> listaVeiculos, String CPF, String genero,
                      Date dataLicenca, String educacao, Date dataNascimento, String classeEconomica){
-    super(nome, endereco, listaVeiculos);
-    this.CPF = CPF;
-    this.genero = genero;
-    this.dataLicenca = dataLicenca;
-    this.educacao = educacao;
-    this.dataNascimento = dataNascimento;
-    this.classeEconomica = classeEconomica;
+        super(nome, endereco, listaVeiculos);
+        this.CPF = CPF;
+        this.genero = genero;
+        this.dataLicenca = dataLicenca;
+        this.educacao = educacao;
+        this.dataNascimento = dataNascimento;
+        this.classeEconomica = classeEconomica;
 
     }
 
     public String getCPF(){
         return CPF;
     }
-
-    // public void setCPF(String CPF){
-    //     this.CPF = CPF;
-    // }
 
     public String getGenero(){
         return genero;
@@ -38,7 +34,6 @@ public class ClientePF extends Cliente {
     public void setGenero(String genero){
         this.genero = genero;
     }
-
 
     public Date getDataLicenca(){
         return dataLicenca;
@@ -121,7 +116,7 @@ public boolean validarCPF(String cpf){
     // verifica se os dígitos do CPF não são todos iguais;
     boolean aux = true;
     int i = 0;
-    while(aux && i < 10){ 
+    while(aux && i < 11){ 
         if (novo_cpf.charAt(i) != novo_cpf.charAt(1)){
             aux = false;
         }

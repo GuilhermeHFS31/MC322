@@ -6,11 +6,11 @@ public class ClientePJ extends Cliente {
     private final String CNPJ;
     private Date dataFundacao;
     
-
+    // constructor
     public ClientePJ(String nome, String endereco, ArrayList<Veiculo> listaVeiculos, String CNPJ, Date dataFundacao){
-    super(nome, endereco, listaVeiculos);
-    this.CNPJ = CNPJ;
-    this.dataFundacao = dataFundacao;
+        super(nome, endereco, listaVeiculos);
+        this.CNPJ = CNPJ;
+        this.dataFundacao = dataFundacao;
     }
 
     public String getCNPJ(){
@@ -24,7 +24,6 @@ public class ClientePJ extends Cliente {
     public void setDataFundacao(Date dataFundacao){
         this.dataFundacao = dataFundacao;
     }
-
 
     public boolean validarCNPJ(String CNPJ){
         String novo_cnpj; 
@@ -75,8 +74,6 @@ public class ClientePJ extends Cliente {
         } else {
             return false;
         }
-        
-
     }
 
     @Override
