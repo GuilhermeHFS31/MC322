@@ -552,7 +552,7 @@ public class AppMain {
                 case SAIR:
                     break;
                 }
-            } while(Menu_op != MenuOperacoes.SAIR && (Menu_op.getMenuID() < 0 || Menu_op.getMenuID() > MenuOperacoes.SAIR.getMenuID()));
+            } while(Menu_op != MenuOperacoes.SAIR);
         
         leitura.close();
     }
