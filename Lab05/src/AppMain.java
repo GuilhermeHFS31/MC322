@@ -50,12 +50,11 @@ public class AppMain {
                     return true;
                 }
             }
-            System.out.println("\nA Seguradora informada não está cadastrada no sistema!");
             return false;
         }
     }
    
-
+    // opcao gerar seguro do menu principal
     public static void gerarSeguro(ArrayList<Seguradora> listaSeguradoras){
         Scanner leitura = new Scanner(System.in);
         System.out.println("Digite o nome da seguradora em que deseja gerar um seguro:");
@@ -115,8 +114,7 @@ public class AppMain {
     // Funcao que realiza a operacao de gerar sinistro do menu principal
     public static void menuSinistro(ArrayList<Seguradora> listaSeguradoras){
         Scanner leitura = new Scanner(System.in);
-        String nome_seguradora, identificador, endereco, placa;
-        Cliente cliente;
+        String nome_seguradora, identificador, endereco;
         Seguradora seguradora;
         Date data_sinistro = new Date();
         System.out.println("Digite o nome da seguradora em que o sinistro será gerado:");
@@ -126,6 +124,7 @@ public class AppMain {
         if(verificaSeguradoras(listaSeguradoras, nome_seguradora)){
             seguradora = buscaSeguradora(listaSeguradoras, nome_seguradora);
             if(seguradora.verificaCliente(identificador)){
+                Cliente cliente;
                 cliente = seguradora.buscarCliente(identificador);
                 System.out.println("Digite as seguintes informações sobre o sinistro:");
                 System.out.printf("Endereço: ");
@@ -273,11 +272,11 @@ public class AppMain {
             System.out.println("***** ERRO: O CADASTRO NÃO PÔDE SER EXECUTADO! ****");
         }
         System.out.print("\n");
-        System.out.println("-------------------------------------------------------" +"\n");
+        
 
 
-
-        System.out.println((" *********** TESTE DA GERAÇÃO DE SEGUROS ***********"));
+        System.out.println("******************************************************" );
+        System.out.println(("              TESTE DA GERAÇÃO DE SEGUROS"));
         // gerando e cadastrando seguro para cliente carlos
         Date data_seguro_carlos = new Date();
         Date dataFimSeguroCarlos = new Date();
@@ -287,7 +286,25 @@ public class AppMain {
         SeguroPF seguro1_carlos = new SeguroPF(data_seguro_carlos, dataFimSeguroCarlos, seguradora_legal, SinistrosSeguroCarlos, CondutoresSeguroCarlos, carro1_carlos, carlos);
         seguradora_legal.getListaSeguros().add(seguro1_carlos);
         
+        // gerando e cadastrando seguro para clientePJ LOJA DO ANDRE
+        Date data_seguro_andre = new Date();
+        Date dataFimLojaAndre = new Date();
+        dataFimLojaAndre.setYear(data_seguro_andre.getYear()+1);
+        ArrayList<Sinistro> SinistrosSeguroAndre = new ArrayList<Sinistro>();
+        ArrayList<Condutor> CondutoresSeguroAndre = new ArrayList<Condutor>();
+        SeguroPJ seguro1_andre = new SeguroPJ(data_seguro_andre, dataFimLojaAndre, seguradora_legal, SinistrosSeguroAndre, CondutoresSeguroAndre, frota_seguranca_andre, loja_andre);
+        seguradora_legal.getListaSeguros().add(seguro1_andre);
+        
+        System.out.println(seguro1_carlos.toString());
+        System.out.println(seguro1_andre.toString());
+       
 
+
+
+
+
+        System.out.println("******************************************************");
+        System.out.println(("          TESTE DA AUTORIZAÇÃO DE CONDUTORES"));
         //AUTORIZANDO CONDUTORES PARAS OS CLIENTE CARLOS
         ArrayList<Sinistro> SinistrosCondutorCarlos = new ArrayList<Sinistro>();
         ArrayList<Sinistro> SinistrosCondutorCarlosFilho = new ArrayList<Sinistro>();
@@ -304,17 +321,8 @@ public class AppMain {
         seguro_aux1.autorizarCondutor(condutor_carlos_esposa);
       
 
-        // gerando e cadastrando seguro para clientePJ LOJA DO ANDRE
-        Date data_seguro_andre = new Date();
-        Date dataFimLojaAndre = new Date();
-        dataFimLojaAndre.setYear(data_seguro_andre.getYear()+1);
-        ArrayList<Sinistro> SinistrosSeguroAndre = new ArrayList<Sinistro>();
-        ArrayList<Condutor> CondutoresSeguroAndre = new ArrayList<Condutor>();
-        SeguroPJ seguro1_andre = new SeguroPJ(data_seguro_andre, dataFimLojaAndre, seguradora_legal, SinistrosSeguroAndre, CondutoresSeguroAndre, frota_seguranca_andre, loja_andre);
-        seguradora_legal.getListaSeguros().add(seguro1_andre);
         
-
-        //AUTORIZANDO CONDUTORES PARAS OS CLIENTE CARLOS
+        //AUTORIZANDO CONDUTORES PARAS OS CLIENTE LOJA DO ANDRE
         ArrayList<Sinistro> SinistrosCondutorAndre = new ArrayList<Sinistro>();
         ArrayList<Sinistro> SinistrosCondutorSeguranca1 = new ArrayList<Sinistro>();
         ArrayList<Sinistro> SinistrosCondutorSeguranca2 = new ArrayList<Sinistro>();
@@ -330,6 +338,14 @@ public class AppMain {
         seguro_aux2.autorizarCondutor(condutor_segurança2);
         seguro_aux2.autorizarCondutor(condutor_andre);
       
+        seguro1_carlos.listarCondutores();
+        seguro1_andre.listarCondutores();
+       
+
+
+
+        System.out.println("******************************************************");
+        System.out.println(("              TESTE DE GERAÇÃO DE SINISTROS "));
         // Gerando um sinistro para o seguro(id = 1) do Cliente carlos
         Date data_sinistro_carlos = new Date();
         seguro1_carlos.gerarSinistro(data_sinistro_carlos, "Rua do sinistro carlos", condutor_carlos);
@@ -338,9 +354,14 @@ public class AppMain {
         // Gerando um sinistro para o seguro(id = 2) do ClientePF Loja do andre
         Date data_sinistro_andre = new Date();
         seguro1_andre.gerarSinistro(data_sinistro_andre, "Rua do sinistro andre", condutor_andre);
+
+
+        seguro1_carlos.listarSinistros();
+        seguro1_andre.listarSinistros();
+        System.out.println("******************************************************" +"\n");
         
 
-        
+        // EXECUCAO DO MENU
         int id_leitura;
         MenuOperacoes Menu_op;
         Scanner leitura = new Scanner(System.in);

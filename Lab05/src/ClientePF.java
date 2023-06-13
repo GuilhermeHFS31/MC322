@@ -148,8 +148,10 @@ public class ClientePF extends Cliente {
         SimpleDateFormat S = new SimpleDateFormat("dd/MM/yyyy");
         return  "\n----  INFORMAÇÕES DO CLIENTE  ----" + "\n"
                 + "Nome: " + this.getNome() + "\n"
-                + "Endereço: " + this.getEndereco() + "\n"
                 + "Cpf: "+ this.CPF + "\n"
+                + "Endereço: " + this.getEndereco() + "\n"
+                + "Telefone: " + this.getTelefone() + "\n"
+                + "E-mail: " + this.getEmail() + "\n"
                 + "Genero: "+ this.genero + "\n"
                 + "Data de nascimento: " + S.format(this.dataNascimento) + "\n"
                 + "---------------------------------" + "\n";

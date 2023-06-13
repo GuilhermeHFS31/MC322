@@ -1,3 +1,4 @@
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -35,18 +36,8 @@ public class SeguroPF extends Seguro{
             this.getListaSinistros().add(sinistro);
             condutor.adicionarSinistro(sinistro);
         }
-        //     Sinistro sinistro = new Sinistro(data, endereco, seguradora, veiculo, cliente);
-//     // verifica se o cliente está na lista de clientes da seguradora;
-//     if(!listaClientes.contains(sinistro.getCliente())){
-//         return false;
-//     } 
-//     // verifica se os cliente possui o veiculo passado como parametro;
-//     if (!cliente.getListaVeiculos().contains(veiculo)){
-//         return false;
-//     }
-//     listaSinistros.add(sinistro);
-//     return true;
     }
+
 
     public boolean autorizarCondutor(Condutor condutor){
         if (this.getListaCondutores().contains(condutor)){
@@ -57,19 +48,23 @@ public class SeguroPF extends Seguro{
             return false;
         }
         this.getListaCondutores().add(condutor);
+        this.setValorMensal(calcularValor());
         return true;
     }
     
+
     public boolean desautorizarCondutor(String cpf ){
         for(int i = 0; i < this.getListaCondutores().size(); i++){
             if(this.getListaCondutores().get(i).getCpf().equals(cpf)){
                 this.getListaCondutores().remove(this.getListaCondutores().get(i));
+                this.setValorMensal(calcularValor());
                 return true;
             }
         }
         return false;
     }
 
+    
     public void removerSinistrosCondutor(String cpf){
         int i;
         for( i = 0; !this.getListaCondutores().get(i).getCpf().equals(cpf); i++);
@@ -125,10 +120,14 @@ public class SeguroPF extends Seguro{
 
     @Override
     public String toString(){
+        SimpleDateFormat S = new SimpleDateFormat("dd/MM/yyyy");
         return  "\n----  INFORMAÇÕES BÁSICAS DO SEGURO  ----" + "\n"
                 + "ID do seguro: " + this.getId() + "\n"
                 + "Nome do Cliente associado: " + this.getCliente().getNome() + "\n"
+                + "CPF do Cliente associado: " + this.getCliente().getCPF() + "\n"
                 + "Placa do Veiculo associado: " + this.getVeiculo().getPlaca() + "\n"
+                + "Data de início do seguro: "+ S.format(this.getDataInicio())  + "\n"
+                + "Data do fim do seguro: "+ S.format(this.getDataFim())  + "\n"
                 + "Valor Mensal: " + this.getValorMensal() + "\n";
 
     }

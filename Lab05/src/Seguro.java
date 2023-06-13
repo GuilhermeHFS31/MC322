@@ -1,3 +1,4 @@
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -76,6 +77,8 @@ public abstract class Seguro {
     public void listarSinistros(){
         for(int i =0; i< listaSinistros.size();i++)
             System.out.println(listaSinistros.get(i).toString());
+        if(listaSinistros.size() == 0)
+            System.out.println("O seguro não possui sinistros gerados!");
     }
 
 
@@ -131,5 +134,14 @@ public abstract class Seguro {
         this.valorMensal = valorMensal;
     }
         
-
+    @Override
+    public String toString(){
+        SimpleDateFormat S = new SimpleDateFormat("dd/MM/yyyy");
+        return  "\n----  INFORMAÇÕES BÁSICAS DO SEGURO  ----" + "\n"
+                + "ID do seguro: " + this.getId() + "\n"
+                + "Data de início do seguro: "+ S.format(this.getDataInicio())  + "\n"
+                + "Data do fim do seguro: "+ S.format(this.getDataFim())  + "\n"
+                + "Seguradora: " + this.getSeguradora() + "\n"
+                + "Valor Mensal: " + this.getValorMensal() + "\n";
+    }
 }

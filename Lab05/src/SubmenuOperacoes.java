@@ -6,11 +6,11 @@ public enum SubmenuOperacoes {
 	CADASTRAR_SEGURADORA(5,"Cadastrar seguradora"),
 	
 	
-	LISTAR_CLIENTES(1,"Listar cliente"),
-	LISTAR_SINISTROS_SEGURO(2,"Listar sinistros"),
+	LISTAR_CLIENTES(1,"Listar clientes de uma seguradora"),
+	LISTAR_SINISTROS_SEGURO(2,"Listar sinistros de um seguro"),
 	LISTAR_VEICULOS_CLIENTEPF(3,"Listar veículos de um cliente 'PF'"),
 	LISTAR_VEICULOS_FROTA(4, "Listar veículos de uma frota"),
-	LISTAR_CONDUTORES_SEGURO(5, "Listar condutores asscoiados a um seguro"),
+	LISTAR_CONDUTORES_SEGURO(5, "Listar condutores associados a um seguro"),
 	LISTAR_SEGUROS_CLIENTE(6, "Listar seguros de um cliente"),
 	LISTAR_SEGUROS_SEGURADORA(7, "Listar seguros de uma seguradora"),
 
@@ -20,6 +20,7 @@ public enum SubmenuOperacoes {
 	EXCLUIR_VEICULO_FROTA(3,"Excluir veiculo"),
 	EXCLUIR_FROTA(4,"Excluir veiculo"),
 	EXCLUIR_SINISTRO(5,"Excluir sininstro"),
+	EXCLUIR_SEGURO(6, "Excluir seguro"),
 	
 	
 	AUTORIZAR_CONDUTOR(1, "Autorizar condutor"),

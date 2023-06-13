@@ -3,7 +3,6 @@ public class Veiculo{
     private String marca;
     private String modelo;
     private int anoFabricacao;
-    public static int n_veiculos = 0;
 
     // Constructor
     public Veiculo(String placa, String marca, String modelo, int anoFabricacao){
@@ -11,7 +10,6 @@ public class Veiculo{
         this.marca = marca;
         this.modelo = modelo;
         this.anoFabricacao = anoFabricacao;
-        n_veiculos++;
     }
 
 public int getAnoFabricacao(){

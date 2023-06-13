@@ -1,3 +1,4 @@
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -55,6 +56,7 @@ public class SeguroPJ extends Seguro {
             return false;
         }
         this.getListaCondutores().add(condutor);
+        this.setValorMensal(calcularValor());
         return true;
     }
     
@@ -62,6 +64,7 @@ public class SeguroPJ extends Seguro {
         for(int i = 0; i < this.getListaCondutores().size(); i++){
             if(this.getListaCondutores().get(i).getCpf().equals(cpf)){
                 this.getListaCondutores().remove(this.getListaCondutores().get(i));
+                this.setValorMensal(calcularValor());
                 return true;
             }
         }
@@ -76,7 +79,7 @@ public class SeguroPJ extends Seguro {
 
     public void removerSinistrosCondutor(String cpf){
         int i;
-        for( i = 0; !this.getListaCondutores().get(i).getCpf().equals(cpf); i++);
+        for( i = 0; i < this.getListaCondutores().size() && !this.getListaCondutores().get(i).getCpf().equals(cpf); i++);
         Condutor condutor = this.getListaCondutores().get(i);
         for(int j = 0; j< this.getListaSinistros().size();j++){
             if(this.getListaSinistros().get(j).getCondutor().equals(condutor)){
@@ -86,8 +89,6 @@ public class SeguroPJ extends Seguro {
     }
         
     
-
-
     public int qtdeVeiculosTotal(){
         int qtde = 0;
         for(int i = 0; i < this.getCliente().getListaFrota().size(); i++){
@@ -114,27 +115,18 @@ public class SeguroPJ extends Seguro {
                 * (2 + (sinistros_cliente/10))
                 * (5 + (sinistros_condutor/10)));
         return valor;
-        // if (ano_atual - ano_nascimento >= 18 && ano_atual - ano_nascimento < 30 ){
-        //     fator_idade = CalcSeguro.values()[1];
-        // } else if (ano_atual - ano_nascimento >= 30 && ano_atual - ano_nascimento < 60 ){
-        //     fator_idade = CalcSeguro.values()[2];
-        // } else if (ano_atual - ano_nascimento >= 60 && ano_atual - ano_nascimento < 90 ){
-        //     fator_idade = CalcSeguro.values()[3];
-        // } else{
-        //     System.out.println("IMPOSSIVEL CALCULAR O SCORE");
-        //     return 0;
-        // }
-        // double score = fator_base.getNum() * fator_idade.getNum() * this.getListaVeiculos().size();
-        // return score;
-        
     }
 
     @Override
     public String toString(){
-        return  "\n----  INFORMAÇÕES BÁSICAS DO CLIENTE  ----" + "\n"
+        SimpleDateFormat S = new SimpleDateFormat("dd/MM/yyyy");
+        return  "\n----  INFORMAÇÕES BÁSICAS DO SEGURO  ----" + "\n"
                 + "ID do seguro: " + this.getId() + "\n"
                 + "Nome do Cliente associado: " + this.getCliente().getNome() + "\n"
+                + "CNPJ do Cliente associado: " + this.getCliente().getCNPJ() + "\n"
                 + "Id da frota associada: " + this.getFrota().getCode() + "\n"
+                + "Data de início do seguro: "+ S.format(this.getDataInicio())  + "\n"
+                + "Data do fim do seguro: "+ S.format(this.getDataFim())  + "\n"
                 + "Valor Mensal: " + this.getValorMensal() + "\n";
 
     }

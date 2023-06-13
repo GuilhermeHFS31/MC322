@@ -117,6 +117,8 @@ public class ExecSubmenu {
                 String code = leitura.nextLine();
                 if(PJ.verificaFrota(code)){
                     adicionandoVeiculoFrota(PJ, code);
+                    Seguro seguro = seguradora.buscarSeguro(cliente);
+                    seguro.setValorMensal(seguro.calcularValor());
                 }
             } else if (cliente instanceof ClientePJ){
                 System.out.println("\nERRO: O cliente informado é do tipo PF!");
@@ -160,12 +162,12 @@ public class ExecSubmenu {
                 n_veiculos = Integer.parseInt(aux);
                 System.out.println("\n------- Adicionanndo veículo(s) na frota -------");
                 Frota frota = new Frota(code, listaVeiculos);
-                for(int i =0; i < n_veiculos; i++){
-                    adicionandoVeiculoFrota(PJ, code);
-                }
                 if(PJ.cadastrarFrota(frota)){
-                    System.out.println("A frota foi cadastrado com sucesso !!!");
-                    System.out.println("É necessário, agora, gerar um seguro à frota cadastrada!!!!");
+                    for(int i =0; i < n_veiculos; i++){
+                        adicionandoVeiculoFrota(PJ, code);
+                    }
+                    System.out.println("A frota foi cadastrada com sucesso !!!");
+                    
                     Date dataInicio = new Date();
                     Date dataFim = new Date();
                     dataFim.setYear(dataInicio.getYear()+1);
@@ -173,10 +175,10 @@ public class ExecSubmenu {
                     ArrayList<Condutor> listaCondutores = new ArrayList<>();
                     SeguroPJ seguro = new SeguroPJ(dataInicio, dataFim, seguradora, listaSinistros, listaCondutores, frota, PJ);
                     if(seguradora.gerarSeguro(seguro)){
-                        System.out.println("O seguro foi gerado com sucesso!");
+                        System.out.println("Foi gerado um seguro para a frota cadastrada!");
                     } else{
                         if(PJ.atualizarFrota(code)){
-                            System.out.println("Erro ao gerar seguro! A frota será descadastrada!");
+                            System.out.println("Erro ao gerar seguro para a nova frota! A frota será descadastrada!");
                         }
                     }
                 } else {
@@ -194,7 +196,7 @@ public class ExecSubmenu {
         
     }      
         
-
+    // gera um veiculo a partir de informacoes do teclado
     public static Veiculo geraVeiculo(){
         Scanner leitura = new Scanner(System.in);
         String placa, modelo, marca;
@@ -214,12 +216,10 @@ public class ExecSubmenu {
         } catch (InputMismatchException e) {
             System.out.println("Ano de fabricação informado inválido, lembre-se de informar apenas o ano!");
             return null;
-        } 
-        
+        }    
     }
     
-
-
+    // efetua p cadastramento de veiculo de um cientepf
     public static void CadastramentoVeiculoPF(ArrayList<Seguradora> listaSeguradoras, String nome_seguradora, String identificador){
         Seguradora seguradora;
         if(verificaSeguradoras(listaSeguradoras, nome_seguradora)){
@@ -230,7 +230,6 @@ public class ExecSubmenu {
                 ClientePF PF = (ClientePF) cliente;
                 if(veiculo != null && PF.cadastrarVeiculo(veiculo)){
                     System.out.println("O veículo foi cadastrado com sucesso !!!");
-                    System.out.println("É necessário, agora, gerar um seguro ao veículo cadastrado!!!!");
                     Date dataInicio = new Date();
                     Date dataFim = new Date();
                     dataFim.setYear(dataInicio.getYear()+1);
@@ -238,9 +237,9 @@ public class ExecSubmenu {
                     ArrayList<Condutor> listaCondutores = new ArrayList<>();
                     SeguroPF seguro = new SeguroPF(dataInicio, dataFim, seguradora, listaSinistros, listaCondutores, veiculo, PF);
                     if(seguradora.gerarSeguro(seguro)){
-                        System.out.println("O seguro foi gerado com sucesso!");
+                        System.out.println("Foi gerado um seguro para o veículo cadastrado!");
                     } else{
-                        System.out.println("Erro ao gerar seguro! O veículo será descadastrado!");
+                        System.out.println("Erro ao gerar seguro para o novo veiculo! O veículo será descadastrado!");
                         PF.removerVeiculo(veiculo);
                     }
                 }
@@ -256,7 +255,7 @@ public class ExecSubmenu {
         
     }
     
-    
+    // efetua o cadastramento de cientepf
     public static void CadastramentoPF( Seguradora seguradora){
         Scanner leitura = new Scanner(System.in);
         String nome, endereco, CPF, genero, educacao, telefone, email;
@@ -296,7 +295,7 @@ public class ExecSubmenu {
         
     }
     
-    
+    // efetua o cadastramento de clientepj
     public static void CadastramentoPJ( Seguradora seguradora){
         Scanner leitura = new Scanner(System.in);
         String nome, endereco, CNPJ, telefone, email;
@@ -336,7 +335,7 @@ public class ExecSubmenu {
         
     }
         
-
+    // funçao resposavel para identificar que tipo de cliente sera cadastrado
     public static void CadastramentoClientes(ArrayList<Seguradora> listaSeguradoras, SubmenuOperacoes submenu_op){
         Scanner leitura = new Scanner(System.in);
         String tipo;
@@ -481,6 +480,7 @@ public class ExecSubmenu {
                     ClientePF PF = (ClientePF) cliente;
                     Veiculo V = PF.buscarVeiculo(placa);
                     PF.removerVeiculo(V);
+                    seguradora.getListaSeguros().remove(seguradora.buscarSeguro(cliente));
                 }
             }
         } else if(submenu_op.getSubmenuID() == 3){
@@ -502,6 +502,8 @@ public class ExecSubmenu {
                         if(frota.verificaVeiculo(placa)){
                             Veiculo V = frota.buscaVeiculo(placa);
                             PJ.atualizarFrota(code, V, 3);
+                            Seguro seguro = seguradora.buscarSeguro(cliente);
+                            seguro.setValorMensal(seguro.calcularValor());
                         }
                     }
                 }
@@ -520,6 +522,7 @@ public class ExecSubmenu {
                     ClientePJ PJ = (ClientePJ) cliente;
                     if(PJ.verificaFrota(code)){
                         PJ.atualizarFrota(code);
+                        seguradora.getListaSeguros().remove(seguradora.buscarSeguro(cliente));
                     }
                 }
                 
@@ -539,11 +542,20 @@ public class ExecSubmenu {
                 Sinistro sinistro = seguro.buscarSinistro(id_sinistro);
                 seguro.getListaSinistros().remove(sinistro);
             }
+        } else if(submenu_op.getSubmenuID() == 5){
+            System.out.println("Digite o nome da seguradora do sinistro a ser excluído:");
+            nome_seguradora = leitura.nextLine();
+            if(verificaSeguradoras(listaSeguradoras, nome_seguradora)){
+                seguradora = buscaSeguradora(listaSeguradoras, nome_seguradora);
+                System.out.println("Digite o ID do seguro que deseja excluir:");
+                String aux = leitura.nextLine();
+                int id_seguro= Integer.parseInt(aux);
+                Seguro seguro = seguradora.buscarSeguro(id_seguro);
+                seguradora.getListaSeguros().remove(seguro);
+            }
         }
-        
-
-
     }
+
 
     public static void opcaoAutorizarCondutor(ArrayList<Seguradora> listaSeguradoras){
         Scanner leitura = new Scanner(System.in);
@@ -592,6 +604,7 @@ public class ExecSubmenu {
         }
     }
 
+
     public static void opcaoRemoverCondutor(ArrayList<Seguradora> listaSeguradoras){
         Scanner leitura = new Scanner(System.in);
         String nome_seguradora, cpf;
@@ -608,9 +621,10 @@ public class ExecSubmenu {
                 Seguro seguro = seguradora.buscarSeguro(id);
                 System.out.println("Digite o CPF do condutor a ser removido");
                 cpf = leitura.nextLine();
+                if (seguro.verificarCondutor(cpf))
+                    seguro.removerSinistrosCondutor(cpf);
                 if(seguro.desautorizarCondutor(cpf)){
                     System.out.println("O condutor foi desvinculado com sucesso!");
-                    seguro.removerSinistrosCondutor(cpf);
                 } else{
                     System.out.println("Erro: o condutor não está associado ao seguro especificado!");
                 }
@@ -619,8 +633,6 @@ public class ExecSubmenu {
             }
         }
     }
-
-    
 
 
     public static void executarSubmenu(MenuOperacoes Menu_op, ArrayList<Seguradora> listaSeguradoras){
@@ -663,6 +675,7 @@ public class ExecSubmenu {
                 case EXCLUIR_VEICULO_FROTA:
                 case EXCLUIR_FROTA:
                 case EXCLUIR_SINISTRO:
+                case EXCLUIR_SEGURO:
                     excluirSubmenu(listaSeguradoras, submenu_op);
                     break;
                 case AUTORIZAR_CONDUTOR:
@@ -678,7 +691,4 @@ public class ExecSubmenu {
 
         } while(submenu_op != SubmenuOperacoes.VOLTAR && submenu_op.getSubmenuID() < 0 || submenu_op.getSubmenuID() > SubmenuOperacoes.VOLTAR.getSubmenuID());
     }
-    
-
-
 }

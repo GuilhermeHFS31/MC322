@@ -26,7 +26,8 @@ public enum MenuOperacoes {
 		SubmenuOperacoes.EXCLUIR_VEICULO_CLIENTEPF,
 		SubmenuOperacoes.EXCLUIR_VEICULO_FROTA,
 		SubmenuOperacoes.EXCLUIR_FROTA,
-		SubmenuOperacoes.EXCLUIR_SINISTRO}),
+		SubmenuOperacoes.EXCLUIR_SINISTRO,
+		SubmenuOperacoes.EXCLUIR_SEGURO}),
 
 	GERENCIAR_CONDUTORES(4, "Gerenciar Condutores", new SubmenuOperacoes[] {
 		SubmenuOperacoes.VOLTAR,

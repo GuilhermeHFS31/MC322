@@ -74,11 +74,11 @@ public class ClientePJ extends Cliente {
     }
 
     public boolean cadastrarFrota(Frota frota){
-        if (this.ListaFrota.size() == 0 || !this.ListaFrota.contains(frota)){
+        if (!this.ListaFrota.contains(frota)){
             ListaFrota.add(frota);
             return true;
         }
-        System.out.println("Não foi possível cadastrar a frota!");
+        
         return false;
     }
 
@@ -96,6 +96,7 @@ public class ClientePJ extends Cliente {
         return false;
     }
 
+    
 
     public boolean atualizarFrota(String code, Veiculo veiculo, int operacao){
         for(int i = 0; i < this.ListaFrota.size(); i++){
@@ -103,22 +104,19 @@ public class ClientePJ extends Cliente {
                 
                 if (operacao == 2){
                     ListaFrota.get(i).getListaVeiculos().add(veiculo);
-                    System.out.println("O veículo foi adicionado com sucesso!");
                     return true;
                 } else if (operacao == 3){
                     ListaFrota.get(i).getListaVeiculos().remove(veiculo);
                     System.out.println("O veículo foi removido com sucesso!");
                     return true;
                 }
+                
             }
         }
         System.out.println("A frota especificada não está cadastrada!");
         return false;
     }
 
-    
-            
-   
 
     public boolean getVeiculosPorFrota(String code){
         for(int i = 0; i < this.ListaFrota.size(); i++){
@@ -135,8 +133,10 @@ public class ClientePJ extends Cliente {
         SimpleDateFormat S = new SimpleDateFormat("dd/MM/yyyy");
         return  "\n----  INFORMAÇÕES DO CLIENTE  ----" + "\n"
                 + "Nome: " + this.getNome() + "\n"
-                + "Endereço: " + this.getEndereco() + "\n"
                 + "CNPJ: "+ this.CNPJ + "\n"
+                + "Endereço: " + this.getEndereco() + "\n"
+                + "Telefone: " + this.getTelefone() + "\n"
+                + "E-mail: " + this.getEmail() + "\n"
                 + "Data de fundação: "+ S.format(this.dataFundacao)  + "\n"
                 + "Quantidade de funcionários: " + this.qtdeFuncionarios +"\n"
                 + "---------------------------------" + "\n";

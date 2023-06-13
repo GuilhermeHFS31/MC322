@@ -86,13 +86,14 @@ public class Condutor {
     @Override
     public String toString(){
         SimpleDateFormat S = new SimpleDateFormat("dd/MM/yyyy");
-        return  "\n----  INFORMAÇÕES DO CLIENTE  ----" + "\n"
+        return  "\n----  INFORMAÇÕES DO CONDUTOR  ----" + "\n"
                 + "Nome: " + this.getNome() + "\n"
-                + "Endereço: " + this.getEndereco() + "\n"
                 + "Cpf: "+ this.cpf + "\n"
+                + "Endereço: " + this.getEndereco() + "\n"
                 + "E-mail: "+ this.email + "\n"
                 + "Genero: "+ this.telefone + "\n"
                 + "Data de nascimento: " + S.format(this.dataNasc) + "\n"
+                + "Número de sinistros:" + this.getListaSinistros().size() + "\n"
                 + "---------------------------------" + "\n";
     }
     

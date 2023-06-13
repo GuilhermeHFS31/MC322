@@ -44,5 +44,12 @@ public class Frota {
             System.out.println(listaVeiculos.get(i).toString());
         }
     }
+    
+    @Override
+    public String toString(){
+         return  "\n----  INFORMAÇÕES DO CLIENTE  ----" + "\n"
+                + "Code: " + this.getCode() + "\n"
+                + "---------------------------------" + "\n";
+    }
 
 }

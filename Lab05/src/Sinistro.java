@@ -70,7 +70,9 @@ public String toString(){
     SimpleDateFormat S = new SimpleDateFormat("dd/MM/yyyy");
     return "\n----  INFORMAÇÕES DO SINISTRO  ----" + "\n"
             + "Nome do condutor: " + this.getCondutor().getNome() + "\n"
-            + "Id: " + this.id + "\n"
+            + "CPF do condutor: " + this.getCondutor().getCpf() + "\n"
+            + "Id do sinistro: " + this.id + "\n"
+            + "Id do seguro: "+ this.getSeguro().getId() + "\n"
             + "Data: "+ S.format(this.data)  + "\n"
             + "Endereço: " + this.endereco + "\n";
 }
